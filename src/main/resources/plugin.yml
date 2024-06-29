@@ -1,0 +1,12 @@
+name: SpawnMine
+main: spot.hardcore.HardCore
+version: ${project.version}
+author: A DoG NaMeD SpoT
+api-version: 1.21
+commands:
+   hardcore:
+      description: Main command to access HardCore.
+      usage: /<command>
+      permission: <plugin name>.use
+      permission-message: You don't have <permission>
+
