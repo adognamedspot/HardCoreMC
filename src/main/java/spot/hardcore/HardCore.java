@@ -11,6 +11,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import spot.hardcore.commands.HardCoreCommand;
 import spot.hardcore.config.Config;
+import spot.hardcore.limbo.Limbo;
+import spot.hardcore.listeners.PlayerListener;
 
 public final class HardCore extends JavaPlugin implements Listener {
 	private static HardCore instance;
@@ -18,6 +20,8 @@ public final class HardCore extends JavaPlugin implements Listener {
 	private static Config config;
 	
 	private static Logger LOGGER;
+	
+	public Limbo LIMBO;
 	
 	
     @Override
@@ -27,6 +31,8 @@ public final class HardCore extends JavaPlugin implements Listener {
 		validateFiles();
     	config = new Config();
 		getCommand("hardcore").setExecutor(new HardCoreCommand());
+		LIMBO = new Limbo();
+		registerEvents(new Listener[] { new PlayerListener() });
     }
     
     @Override
@@ -48,7 +54,7 @@ public final class HardCore extends JavaPlugin implements Listener {
     
     private void validateFiles() {
         LOGGER.info("Validating configuration files...");
-        FileValidator(new String[] { "enchants.yml" });
+        FileValidator(new String[] { "config.yml" });
       }
       
     public static void FileValidator (String... fileNames) {

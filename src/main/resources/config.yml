@@ -6,3 +6,6 @@ Debug:
   Enabled: true
 # Broadcasts all debug messages to chat (spammy!)
   BroadcastChatEnabled: false
+
+Options:
+  DefaultNumberOfLives: 5

@@ -13,4 +13,8 @@ public class Config extends YamlFile {
 		return this.loadedFile.getBoolean("Debug.BroadcastChatEnabled");
 	}
 	
+	public int getDefaultLives() {
+		return this.loadedFile.getInt("Options.DefaultNumberOfLives");
+	}
+	
 }

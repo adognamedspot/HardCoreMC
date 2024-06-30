@@ -1,4 +1,4 @@
-name: SpawnMine
+name: HardCore
 main: spot.hardcore.HardCore
 version: ${project.version}
 author: A DoG NaMeD SpoT
