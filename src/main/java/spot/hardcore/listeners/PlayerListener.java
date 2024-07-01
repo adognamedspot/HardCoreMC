@@ -1,6 +1,6 @@
 package spot.hardcore.listeners;
 
-import org.bukkit.NamespacedKey;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -8,68 +8,43 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 
-import net.md_5.bungee.api.ChatColor;
 import spot.hardcore.HardCore;
-import spot.hardcore.limbo.Limbo;
+import spot.hardcore.Logger;
+import spot.hardcore.utils.PlayerUtils;
 
 public class PlayerListener implements Listener {
+	
+	Logger LOGGER = HardCore.getLog();
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
-		checkLives(event.getPlayer());
+		if (!PlayerUtils.checkLives(event.getPlayer()))
+			HardCore.getLimbo().transportPlayer(event.getPlayer());
 	}
 	
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event) {
 		Player player = event.getEntity();
-		setLives(player, getLives(player) - 1);
+		PlayerUtils.setLives(player, PlayerUtils.getLives(player) - 1);
 	}
 	
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event) {
-		event.setTo(event.getFrom());
-		event.setCancelled(true);
+		if (PlayerUtils.getLives(event.getPlayer()) == 0) {
+			event.setTo(event.getFrom());
+			event.setCancelled(true);
+		}
 	}
 	
 	@EventHandler
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
-		checkLives(event.getPlayer());
-	}
-	
-	private int getLives(Player player) {
-		PersistentDataContainer pdc = player.getPersistentDataContainer();
-		NamespacedKey key = new NamespacedKey(HardCore.getInstance(), "HC_Lives");
-		if (pdc.has(key, PersistentDataType.INTEGER)) {
-			return pdc.get(key, PersistentDataType.INTEGER);
+		if (!PlayerUtils.checkLives(event.getPlayer())) {
+			HardCore.getLimbo().transportPlayer(event.getPlayer());
+			event.setRespawnLocation(new Location(HardCore.getLimbo().getWorld(), 0, 100, 0));
 		}
-		return HardCore.getPluginConfig().getDefaultLives();
+		LOGGER.debug("onPlayerRespawn() - " + event.getRespawnLocation().toString());
+			
 	}
 	
-	private void setLives(Player player, int lives) {
-		PersistentDataContainer pdc = player.getPersistentDataContainer();
-		NamespacedKey key = new NamespacedKey(HardCore.getInstance(), "HC_Lives");
-		pdc.set(key, PersistentDataType.INTEGER, lives);
-	}
-	
-	private void checkLives(Player player) {
-		if (getLives(player) <= 0) {
-			setLives(player, 0);
-			announceDead(player);
-			Limbo.transportPlayer(player);
-		} else {
-			announceLives(player);
-		}
-	}
-	
-	private void announceLives(Player player) {
-		player.sendTitle(String.format("You have %d lives remaining.", getLives(player)), ChatColor.YELLOW + "Use them wisely", 10, 70, 20);
-	}
-
-	private void announceDead(Player player) {
-		player.sendTitle(ChatColor.RED + "You have 0 lives remaining.", "You are dead dead", 10, 70, 20);
-	}
-
 }

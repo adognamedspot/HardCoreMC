@@ -33,14 +33,15 @@
 - [x] Locked in place
 - [x] Spectator Mode
 - [ ] Permissions Group [Limbo]
-- [ ] Shows Limbo prefix with gray name in Tab
+- [x] Shows Death prefix with gray name in Tab and chat
 
 ## Commands:
 
 #### HardCore
 
 - [x] ***RELOAD*** - Reloads configuration file
-- [ ] ***LIMBO*** - Sends player to/Removes player from Limbo
+- [x] ***SETLIVES*** - Sets a player's number of lives
+- [ ] ---LIMBO--- - Sends player to/Removes player from Limbo
 		
 ## Configuration:
 

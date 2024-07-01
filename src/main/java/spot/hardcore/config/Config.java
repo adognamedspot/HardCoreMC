@@ -17,4 +17,8 @@ public class Config extends YamlFile {
 		return this.loadedFile.getInt("Options.DefaultNumberOfLives");
 	}
 	
+	public String getDeadPrefix() {
+		return this.loadedFile.getString("Options.DeadPrefix");
+	}
+	
 }

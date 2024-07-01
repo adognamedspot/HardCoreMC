@@ -9,3 +9,4 @@ Debug:
 
 Options:
   DefaultNumberOfLives: 5
+  DeadPrefix: "§c§l[§4DEAD§c§l]"

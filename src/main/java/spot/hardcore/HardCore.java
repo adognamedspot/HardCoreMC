@@ -21,7 +21,7 @@ public final class HardCore extends JavaPlugin implements Listener {
 	
 	private static Logger LOGGER;
 	
-	public Limbo LIMBO;
+	public static Limbo LIMBO;
 	
 	
     @Override
@@ -50,6 +50,10 @@ public final class HardCore extends JavaPlugin implements Listener {
     
     public static Logger getLog() {
     	return LOGGER;
+    }
+    
+    public static Limbo getLimbo() {
+    	return LIMBO;
     }
     
     private void validateFiles() {

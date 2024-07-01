@@ -13,7 +13,7 @@ import spot.hardcore.Logger;
 
 public class Limbo {
 	
-	static World WORLD;
+	World WORLD;
 	
 	Logger LOGGER = HardCore.getLog();
 	
@@ -33,9 +33,28 @@ public class Limbo {
 		return WORLD;
 	}
 	
-	public static boolean transportPlayer(Player player) {
+	public boolean transportPlayer(Player player) {
+		LOGGER.debug("transportPlayer() - Setting GameMode to Spectator");
 		player.setGameMode(GameMode.SPECTATOR);
+		player.setAllowFlight(true);
+		player.setDisplayName(String.format("%s §8§o%s", HardCore.getPluginConfig().getDeadPrefix(), player.getName()));
+		player.setPlayerListName(String.format("%s §8§o%s", HardCore.getPluginConfig().getDeadPrefix(), player.getName()));
 		Location limbo = new Location(WORLD, 0, 100, 0);
+		LOGGER.debug("transportPlayer() - Transporting Player to Limbo");
 		return player.teleport(limbo);
+	}
+	
+	public boolean resurrectPlayer(Player player) {
+		LOGGER.debug("resurrectPlayer() - Setting GameMode to Survival");
+		player.setGameMode(GameMode.SURVIVAL);
+		player.setAllowFlight(false);
+		player.setDisplayName(player.getName());
+		player.setPlayerListName(player.getName());
+		player.setPlayerListHeader(null);
+		LOGGER.debug("resurrectPlayer() - Transporting Player to ReSpawn point");
+		Location respawn = player.getRespawnLocation();
+		if (respawn == null)
+			respawn = Bukkit.getWorld("world").getSpawnLocation();
+		return player.teleport(respawn);
 	}
 }
