@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 
 import spot.hardcore.HardCore;
 import spot.hardcore.Logger;
+import spot.hardcore.limbo.NecrologyEntry;
 import spot.hardcore.utils.PlayerUtils;
 
 public class PlayerListener implements Listener {
@@ -21,12 +22,20 @@ public class PlayerListener implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		if (!PlayerUtils.checkLives(event.getPlayer()))
 			HardCore.getLimbo().transportPlayer(event.getPlayer());
+		NecrologyEntry ne = PlayerUtils.getNecrologyEntry(event.getPlayer());
+		if (ne != null) {
+			if (ne.resurrected()) {
+				PlayerUtils.resetPlayer(event.getPlayer());
+			}
+		}
 	}
 	
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event) {
 		Player player = event.getEntity();
 		PlayerUtils.setLives(player, PlayerUtils.getLives(player) - 1);
+		if (PlayerUtils.getLives(player) == 0) 
+			HardCore.getNecrology().add(new NecrologyEntry(player));
 	}
 	
 	@EventHandler

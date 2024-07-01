@@ -11,6 +11,14 @@
 	
 ## GamePlay:
 
+#### onEnable()
+
+- [ ] Load NecrologyEntries from disk
+
+#### onDisable()
+
+- [ ] Save NecrologyEntries to disk
+
 #### onLogin()
 
 - [x] Check to see if they need to be sent to Limbo
@@ -30,7 +38,7 @@
 	
 ## Limbo:
 
-- [ ] Reminder of how long they have left in limbo (Boss Bar?)
+- [x] Reminder of how long they have left in limbo (Boss Bar?)
 - [x] Locked in place
 - [x] Spectator Mode
 - [ ] Permissions Group [Limbo]
@@ -42,12 +50,16 @@
 
 - [x] ***RELOAD*** - Reloads configuration file
 - [x] ***SETLIVES*** - Sets a player's number of lives
-- [ ] --LIMBO-- - Sends player to/Removes player from Limbo
 		
 ## Configuration:
 
-- [ ] Time in Limbo - **double** - `Number of Hours spent in Limbo before being resurrected`
+- [x] Time in Limbo - **String** - `Number of Hours spent in Limbo before being resurrected ie: 1d 2h 3m 4s`
 - [x] Number of Lives - **int** - `Number of Lives before sent to Limbo`
 - [ ] PvP bad - **boolean** - `Killer loses 1 life for killing another player`
 - [ ] Limbo Chat - **boolean** - `Can chat in Limbo`
 - [x] Limbo Prefix - **String** - `Prefix to show in Tab List - [Dead]`
+
+## Bugs so far:
+
+- [ ] Dead prefix only shows up for other players and in chat
+- [ ] Players in Limbo stuck in Limbo after server restart - Save to file needed

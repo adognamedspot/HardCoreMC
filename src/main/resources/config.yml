@@ -9,4 +9,6 @@ Debug:
 
 Options:
   DefaultNumberOfLives: 5
+# How long to spend in Limbo, ie: 1d 7h 12m 32s
+  DefaultTimeInLimbo: 2m
   DeadPrefix: "§c§l[§4DEAD§c§l]"
