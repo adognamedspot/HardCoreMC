@@ -14,6 +14,7 @@
 #### onLogin()
 
 - [x] Check to see if they need to be sent to Limbo
+- [x] Remind them how many lives left
 
 #### onDeath()
 
@@ -41,7 +42,7 @@
 
 - [x] ***RELOAD*** - Reloads configuration file
 - [x] ***SETLIVES*** - Sets a player's number of lives
-- [ ] ---LIMBO--- - Sends player to/Removes player from Limbo
+- [ ] --LIMBO-- - Sends player to/Removes player from Limbo
 		
 ## Configuration:
 
@@ -49,4 +50,4 @@
 - [x] Number of Lives - **int** - `Number of Lives before sent to Limbo`
 - [ ] PvP bad - **boolean** - `Killer loses 1 life for killing another player`
 - [ ] Limbo Chat - **boolean** - `Can chat in Limbo`
-- [ ] Limbo Prefix - **String** - `Prefix to show in Tab List - [Dead]`
+- [x] Limbo Prefix - **String** - `Prefix to show in Tab List - [Dead]`
